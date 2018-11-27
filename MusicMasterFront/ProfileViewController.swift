@@ -8,13 +8,71 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     let userNameTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 35))
+    let guestPlaylistMessage = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
+    let playlistTitleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
+    let playlistCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
     let maskView = UIImageView()
     var profilePicView = UIImageView()
+    private let myArray: NSArray = ["Daily Drive","Favorites","Relaxing", "Holiday Party Mix", "Straight Bangers", "Awesome Mix Vol. 1"]
+    private var playlistSavedTable: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let displayWidth: CGFloat = self.view.frame.width
+        let displayHeight: CGFloat = self.view.frame.height/2
+        
+        if(Main().getGuestBool() == false)
+        {
+            playlistSavedTable = UITableView(frame: CGRect(x: 0, y: displayHeight, width: displayWidth, height: displayHeight))
+            playlistSavedTable.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
+            playlistSavedTable.dataSource = self
+            playlistSavedTable.delegate = self
+            playlistSavedTable.backgroundColor = UIColor.clear
+            self.view.addSubview(playlistSavedTable)
+        }
+        else
+        {
+            guestPlaylistMessage.numberOfLines = 2
+            guestPlaylistMessage.center.x = self.view.center.x
+            guestPlaylistMessage.center.y = 400
+            guestPlaylistMessage.textAlignment = .center
+            guestPlaylistMessage.text = "Log in or register to save playlists"
+            guestPlaylistMessage.textColor = UIColor.white
+            let ifont = UIFont(name: "HelveticaNeue-MediumItalic", size: 18.0)!
+            guestPlaylistMessage.font = ifont
+            self.view.addSubview(guestPlaylistMessage)
+        }
+        
+        playlistTitleLabel.center.x = self.view.center.x
+        playlistTitleLabel.center.y = 325
+        playlistTitleLabel.textAlignment = .center
+        playlistTitleLabel.text = "Playlists"
+        playlistTitleLabel.textColor = UIColor.white
+        let pfont = UIFont(name: "HelveticaNeue-Medium", size: 21.0)!
+        playlistTitleLabel.font = pfont
+        self.view.addSubview(playlistTitleLabel)
+        
+        playlistCountLabel.center.x = self.view.center.x
+        playlistCountLabel.center.y = 360
+        playlistCountLabel.textAlignment = .center
+        playlistCountLabel.text = "0"
+        if(Main().getGuestBool() == false)
+        {
+            playlistCountLabel.text = String(myArray.count)
+            playlistCountLabel.font = pfont
+        }
+        else
+        {
+            playlistCountLabel.text = "0"
+        }
+        playlistCountLabel.textColor = UIColor.white
+        playlistCountLabel.font = pfont
+        self.view.addSubview(playlistCountLabel)
+        
         
         maskView.image = UIImage(named: "mask.png")
 
@@ -60,6 +118,32 @@ class ProfileViewController: UIViewController {
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)*/
         
         //self.view.addSubview(button)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Num: \(indexPath.row)")
+        print("Value: \(myArray[indexPath.row])")
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return myArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
+        cell.textLabel!.text = "\(myArray[indexPath.row])"
+        cell.backgroundColor = UIColor.clear
+        cell.textLabel!.textColor = UIColor.white
+        cell.accessoryType = .disclosureIndicator
+        
+        tableView.separatorStyle = .none
+        let bgColorView = UIView()
+        let bgColor = UIColor(red: 73/255.0, green: 22/255.0, blue: 181/255.0, alpha: 1.0)
+        bgColorView.backgroundColor = bgColor
+        cell.selectedBackgroundView = bgColorView
+        let ifont = UIFont(name: "HelveticaNeue-Medium", size: 20.0)!
+        cell.textLabel!.font = ifont
+        return cell
     }
     
     override func viewDidAppear(_ animated: Bool) {

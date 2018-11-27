@@ -101,6 +101,10 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
         cell.textLabel!.text = "\(myArray[indexPath.row])"
         cell.backgroundColor = UIColor.clear
         cell.textLabel!.textColor = UIColor.white
+        let bgColorView = UIView()
+        let bgColor = UIColor(red: 73/255.0, green: 22/255.0, blue: 181/255.0, alpha: 1.0)
+        bgColorView.backgroundColor = bgColor
+        cell.selectedBackgroundView = bgColorView
         return cell
     }
     

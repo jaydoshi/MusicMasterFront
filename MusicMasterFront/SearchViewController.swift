@@ -97,6 +97,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     var pulsatingLayer: CAShapeLayer!
     var artistName : String = ""
     var songName : String = ""
+    var artistNameWithSpaces = ""
+    var songNameWithSpaces = ""
     let client = ItunesAPIClient()
     var albumView = UIImageView()
     let selectButton = UIButton(frame: CGRect(x: 30, y: 540, width: 100, height: 100))
@@ -345,6 +347,39 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         }
         print("artist: "+artistName)
         print("song: "+songName)
+        
+        artistNameWithSpaces = artistName
+        songNameWithSpaces = songName
+        artistName = artistName.replacingOccurrences(of: " ", with: "+")
+        songName = songName.replacingOccurrences(of: " ", with: "+")
+
+        //var urlStringHold = "http://localhost:8080/SwiftServletTest/FirstServlet?"
+        //let finalURL : String = urlStringHold+"songname="+songName+"&"+"artistname"+artistName
+        
+        var request = URLRequest(url: URL(string: "http://localhost:8080/SwiftServletTest/FirstServlet?"+"songname="+songName+"&"+"artistname="+artistName)!)
+        request.httpMethod = "GET"
+        //let session = URLSession.shared
+        //let testString = "/?test=Bad+Blood+by+Taylor+Swift"
+        //let somedata = testString.data(using: String.Encoding.utf8)
+        
+        //request.httpBody = somedata
+        print(request)
+        let task = URLSession.shared.dataTask(with: request) {data, response, err in
+            if err != nil {
+                
+                //handle error
+            }
+            else {
+                
+                let jsonStr = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                print("Parsed JSON: '\(String(describing: jsonStr))'")
+            }
+            print("Entered the completionHandler")
+            
+        }
+        task.resume()
+        
+        
         self.performSegue(withIdentifier: "SearchSegue", sender: self)
         artistChosenByUser.text = "Artist";
         songChosenByUser.text = "Song";
@@ -396,8 +431,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
 
         // Create a variable that you want to send
         if segue.identifier == "SearchSegue" {
-            let songToSend : String = self.songName
-            let artistToSend : String = self.artistName
+            let songToSend : String = self.songNameWithSpaces
+            let artistToSend : String = self.artistNameWithSpaces
 
             // Create a new variable to store the instance of PlayerTableViewController
             let destinationVC = segue.destination as! UINavigationController

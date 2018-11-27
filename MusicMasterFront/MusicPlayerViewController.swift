@@ -12,10 +12,10 @@ import MediaPlayer
 
 class MusicPlayerViewController: UIViewController {
 
-    let forwardButton = UIButton(frame: CGRect(x: 0, y: 480, width: 40, height: 40))
-    let backwardButton = UIButton(frame: CGRect(x: 0, y: 480, width: 40, height: 40))
-    let playerButton = UIButton(frame: CGRect(x: 30, y: 470, width: 60, height: 60))
-    let volumeSlider = UISlider(frame: CGRect(x: 0, y: 540, width: 300, height: 60))
+    let forwardButton = UIButton(frame: CGRect(x: 0, y: 540, width: 40, height: 40))
+    let backwardButton = UIButton(frame: CGRect(x: 0, y: 540, width: 40, height: 40))
+    let playerButton = UIButton(frame: CGRect(x: 30, y: 530, width: 60, height: 60))
+    let volumeSlider = UISlider(frame: CGRect(x: 0, y: 600, width: 300, height: 60))
     let artistTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
     let songTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
     var player: AVAudioPlayer = AVAudioPlayer()
@@ -50,11 +50,12 @@ class MusicPlayerViewController: UIViewController {
         self.view.addSubview(artistTitle)
         
         songTitle.center.x = self.view.center.x
-        songTitle.center.y = 290
+        songTitle.center.y = 370
         songTitle.textAlignment = .center
         songTitle.text = "Song"
         songTitle.textColor = UIColor.white
-        songTitle.font = sfont
+        let ifont = UIFont(name: "HelveticaNeue-MediumItalic", size: 18.0)!
+        songTitle.font = ifont
         self.view.addSubview(songTitle)
         
         
@@ -86,7 +87,7 @@ class MusicPlayerViewController: UIViewController {
         let defaultAlbum = "defaultAlbum.png"
         let albumImage = UIImage(named: defaultAlbum)
         let albumView = UIImageView(image: albumImage!)
-        albumView.frame = CGRect(x: 0, y: 150, width: 120, height: 120)
+        albumView.frame = CGRect(x: 0, y: 150, width: 190, height: 190)
         view.addSubview(albumView)
         albumView.center.x = view.center.x
         

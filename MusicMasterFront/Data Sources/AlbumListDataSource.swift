@@ -43,7 +43,7 @@ class AlbumListDataSource: NSObject, UITableViewDataSource {
         if album.artworkState == .placeholder {
             downloadArtworkForAlbum(album, atIndexPath: indexPath)
         }
-        
+ 
         return albumCell
     }
     
