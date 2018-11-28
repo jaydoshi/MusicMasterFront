@@ -355,13 +355,16 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         
         artistNameWithSpaces = artistName
         songNameWithSpaces = songName
+        var user = Main().getUsername()
         artistName = artistName.replacingOccurrences(of: " ", with: "+")
         songName = songName.replacingOccurrences(of: " ", with: "+")
-
+        user = user.replacingOccurrences(of: " ", with: "+")
+        print("USERNAME: "+user)
+        
         //var urlStringHold = "http://localhost:8080/SwiftServletTest/FirstServlet?"
         //let finalURL : String = urlStringHold+"songname="+songName+"&"+"artistname"+artistName
         
-        var request = URLRequest(url: URL(string: "http://localhost:8080/SwiftServletTest/FirstServlet?"+"songname="+songName+"&"+"artistname="+artistName)!)
+        var request = URLRequest(url: URL(string: "http://localhost:8080/SwiftServletTest/FirstServlet?"+"songname="+songName+"&"+"artistname="+artistName+"&"+"username="+user)!)
         request.httpMethod = "GET"
         //let session = URLSession.shared
         //let testString = "/?test=Bad+Blood+by+Taylor+Swift"

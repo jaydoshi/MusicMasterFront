@@ -17,7 +17,7 @@ class MusicPlayerViewController: UIViewController {
     let playerButton = UIButton(frame: CGRect(x: 30, y: 530, width: 60, height: 60))
     let volumeSlider = UISlider(frame: CGRect(x: 0, y: 600, width: 300, height: 60))
     let artistTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
-    let songTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+    let songTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 260, height: 30))
     var player: AVAudioPlayer = AVAudioPlayer()
     
     override func viewDidLoad() {
@@ -43,7 +43,7 @@ class MusicPlayerViewController: UIViewController {
         artistTitle.center.x = self.view.center.x
         artistTitle.center.y = 120
         artistTitle.textAlignment = .center
-        artistTitle.text = "Artist"
+        artistTitle.text = "Young the Giant"
         artistTitle.textColor = UIColor.white
         let sfont = UIFont(name: "HelveticaNeue-Bold", size: 20.0)!
         artistTitle.font = sfont
@@ -52,7 +52,7 @@ class MusicPlayerViewController: UIViewController {
         songTitle.center.x = self.view.center.x
         songTitle.center.y = 370
         songTitle.textAlignment = .center
-        songTitle.text = "Song"
+        songTitle.text = "Mind over Matter (Reprise)"
         songTitle.textColor = UIColor.white
         let ifont = UIFont(name: "HelveticaNeue-MediumItalic", size: 18.0)!
         songTitle.font = ifont
@@ -84,7 +84,7 @@ class MusicPlayerViewController: UIViewController {
         volumeSlider.addTarget(self, action: #selector(sliderValueChanged), for: .allTouchEvents)
         self.view.addSubview(volumeSlider)
 
-        let defaultAlbum = "defaultAlbum.png"
+        let defaultAlbum = "mirrorball.jpg"
         let albumImage = UIImage(named: defaultAlbum)
         let albumView = UIImageView(image: albumImage!)
         albumView.frame = CGRect(x: 0, y: 150, width: 190, height: 190)
@@ -93,7 +93,8 @@ class MusicPlayerViewController: UIViewController {
         
         do
         {
-            let audioPath = Bundle.main.path(forResource: "take-me-home", ofType: "mp3")
+            try AVAudioSession.sharedInstance().setActive(true)
+            let audioPath = Bundle.main.path(forResource: "mind-over-matter-reprise", ofType: "mp3")
             try player = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
         }
         catch

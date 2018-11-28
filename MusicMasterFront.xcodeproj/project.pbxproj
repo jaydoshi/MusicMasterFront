@@ -34,6 +34,7 @@
 		AD0BA6B921AA21A500DD752A /* AlbumDetailDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0BA6B821AA21A500DD752A /* AlbumDetailDataSource.swift */; };
 		AD0BA6BB21AA21F500DD752A /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0BA6BA21AA21F500DD752A /* SongCell.swift */; };
 		AD0BA6BD21AA221C00DD752A /* SongViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0BA6BC21AA221C00DD752A /* SongViewModel.swift */; };
+		AD0BA6BF21AF36FE00DD752A /* mind-over-matter-reprise.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD0BA6BE21AF36FD00DD752A /* mind-over-matter-reprise.mp3 */; };
 		AD8867F6218793F0005F0B14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8867F5218793F0005F0B14 /* AppDelegate.swift */; };
 		AD8867F8218793F0005F0B14 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8867F7218793F0005F0B14 /* ExploreViewController.swift */; };
 		AD8867FA218793F0005F0B14 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8867F9218793F0005F0B14 /* SearchViewController.swift */; };
@@ -78,6 +79,7 @@
 		AD0BA6B821AA21A500DD752A /* AlbumDetailDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailDataSource.swift; sourceTree = "<group>"; };
 		AD0BA6BA21AA21F500DD752A /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		AD0BA6BC21AA221C00DD752A /* SongViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongViewModel.swift; sourceTree = "<group>"; };
+		AD0BA6BE21AF36FD00DD752A /* mind-over-matter-reprise.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mind-over-matter-reprise.mp3"; sourceTree = "<group>"; };
 		AD8867F2218793F0005F0B14 /* MusicMasterFront.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicMasterFront.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD8867F5218793F0005F0B14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD8867F7218793F0005F0B14 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				AD8867FE218793F3005F0B14 /* Assets.xcassets */,
 				AD886800218793F3005F0B14 /* LaunchScreen.storyboard */,
 				AD886803218793F3005F0B14 /* Info.plist */,
+				AD0BA6BE21AF36FD00DD752A /* mind-over-matter-reprise.mp3 */,
 				AD0BA68221A7D78100DD752A /* take-me-home.mp3 */,
 			);
 			path = MusicMasterFront;
@@ -276,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD886802218793F3005F0B14 /* LaunchScreen.storyboard in Resources */,
+				AD0BA6BF21AF36FE00DD752A /* mind-over-matter-reprise.mp3 in Resources */,
 				AD8867FF218793F3005F0B14 /* Assets.xcassets in Resources */,
 				AD8867FD218793F0005F0B14 /* Main.storyboard in Resources */,
 				AD0BA68321A7D78200DD752A /* take-me-home.mp3 in Resources */,

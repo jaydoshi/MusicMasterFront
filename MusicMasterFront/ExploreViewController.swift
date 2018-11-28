@@ -15,17 +15,21 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
     var album1View = UIImageView()
     var album2View = UIImageView()
     var album3View = UIImageView()
+    var feedStringResponse = ""
     var multiFeed: UITableView!
-    private let myArray: NSArray = ["jaydoshi searched for Superposition by Young the Giant","tjweaver searched for Girls Like You by Maroon 5"]
+    private var myArray: Array<String> = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height/2
         
         if(Main().getGuestBool() == false)
         {
+            DispatchQueue.main.async {
+                self.multiFeed.reloadData()
+            }
             multiFeed = UITableView(frame: CGRect(x: 0, y: displayHeight, width: displayWidth, height: displayHeight))
             multiFeed.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
             multiFeed.dataSource = self
@@ -69,10 +73,10 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.view.addSubview(exploreTitle)
         
-        let defaultAlbum = "defaultAlbum.png"
+        let defaultAlbum = "mariah1.jpg"
         let albumImage = UIImage(named: defaultAlbum)
         album1View = UIImageView(image: albumImage!)
-        Main().setSearchAlbumArt(art: albumImage!)
+        //Main().setSearchAlbumArt(art: albumImage!)
         album1View.frame = CGRect(x: 0, y: 220, width: 100, height: 100)
         album1View.center.x = view.center.x
 
@@ -106,6 +110,14 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        print("lol")
+        DispatchQueue.main.async {
+            self.getData()
+            self.multiFeed.reloadData()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Num: \(indexPath.row)")
         print("Value: \(myArray[indexPath.row])")
@@ -133,6 +145,48 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
         let ifont = UIFont(name: "HelveticaNeue-Medium", size: 18.0)!
         cell.textLabel!.font = ifont
         return cell
+    }
+    
+    func getData()
+    {
+        myArray.removeAll()
+        var request = URLRequest(url: URL(string: "http://localhost:8080/SwiftServletTest/MultiServlet?")!)
+        request.httpMethod = "GET"
+        
+        print(request)
+        
+        let task = URLSession.shared.dataTask(with: request) {data, response, err in
+            if err != nil {
+                
+                //handle error
+            }
+            else {
+                
+                let jsonStr = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                print("Parsed JSON: '\(String(describing: jsonStr))'")
+                self.feedStringResponse = jsonStr! as String
+                print("response: "+self.feedStringResponse)
+            }
+            print("Entered the completionHandler")
+            
+            var feedLine = ""
+            for index in self.feedStringResponse.indices
+            {
+                if(self.feedStringResponse[index] == "%")
+                {
+                    self.myArray.append(feedLine)
+                    print(feedLine)
+                    feedLine = ""
+                }
+                else
+                {
+                    feedLine.append(self.feedStringResponse[index])
+                }
+            }
+            
+            self.multiFeed.reloadData()
+        }
+        task.resume()
     }
     
     
