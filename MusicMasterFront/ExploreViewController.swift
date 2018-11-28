@@ -8,17 +8,48 @@
 
 import UIKit
 
-class ExploreViewController: UIViewController {
+class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
 
     let serverButton = UIButton(frame: CGRect(x: 190, y: 480, width: 105, height: 50))
+    let guestFeedMessage = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
+    var album1View = UIImageView()
+    var album2View = UIImageView()
+    var album3View = UIImageView()
+    var multiFeed: UITableView!
+    private let myArray: NSArray = ["jaydoshi searched for Superposition by Young the Giant","tjweaver searched for Girls Like You by Maroon 5"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let displayWidth: CGFloat = self.view.frame.width
+        let displayHeight: CGFloat = self.view.frame.height/2
+        
+        if(Main().getGuestBool() == false)
+        {
+            multiFeed = UITableView(frame: CGRect(x: 0, y: displayHeight, width: displayWidth, height: displayHeight))
+            multiFeed.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
+            multiFeed.dataSource = self
+            multiFeed.delegate = self
+            multiFeed.backgroundColor = UIColor.clear
+            self.view.addSubview(multiFeed)
+        }
+        else
+        {
+            guestFeedMessage.numberOfLines = 2
+            guestFeedMessage.center.x = self.view.center.x
+            guestFeedMessage.center.y = 400
+            guestFeedMessage.textAlignment = .center
+            guestFeedMessage.text = "Log in or register to view feed"
+            guestFeedMessage.textColor = UIColor.white
+            let ifont = UIFont(name: "HelveticaNeue-MediumItalic", size: 18.0)!
+            guestFeedMessage.font = ifont
+            self.view.addSubview(guestFeedMessage)
+        }
+        
         // Do any additional setup after loading the view, typically from a nib.
         let black = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
         let darkPurple = UIColor(red: 24/255.0, green: 18/255.0, blue: 97/255.0, alpha: 1.0)
-        let betterBlue = UIColor(red: 0/255.0, green: 94/255.0, blue: 255/255.0, alpha: 1.0)
+        //let betterBlue = UIColor(red: 0/255.0, green: 94/255.0, blue: 255/255.0, alpha: 1.0)
         let gradient = CAGradientLayer()
         gradient.colors = [black.cgColor, darkPurple.cgColor]
         gradient.locations = [0.0, 0.75, 1.0]
@@ -27,7 +58,7 @@ class ExploreViewController: UIViewController {
         gradient.frame = view.frame
         self.view.layer.insertSublayer(gradient, at: 0)
         
-        let exploreTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        let exploreTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
         exploreTitle.center.x = self.view.center.x
         exploreTitle.center.y = 170
         exploreTitle.textAlignment = .center
@@ -38,8 +69,23 @@ class ExploreViewController: UIViewController {
         
         self.view.addSubview(exploreTitle)
         
+        let defaultAlbum = "defaultAlbum.png"
+        let albumImage = UIImage(named: defaultAlbum)
+        album1View = UIImageView(image: albumImage!)
+        Main().setSearchAlbumArt(art: albumImage!)
+        album1View.frame = CGRect(x: 0, y: 220, width: 100, height: 100)
+        album1View.center.x = view.center.x
+
+        view.addSubview(album1View)
         
+        let overlayAlbum = "album-mask.png"
+        let overlayAlbumImage = UIImage(named: overlayAlbum)
+        let overlayAlbumView = UIImageView(image: overlayAlbumImage!)
+        overlayAlbumView.frame = CGRect(x: 0, y: 220, width: 100, height: 100)
+        overlayAlbumView.center.x = view.center.x
+        view.addSubview(overlayAlbumView)
         
+        /*
         serverButton.titleLabel?.textColor = UIColor.white
         let tfont = UIFont(name: "HelveticaNeue", size: 15.0)!
         serverButton.titleLabel?.font = tfont
@@ -51,7 +97,7 @@ class ExploreViewController: UIViewController {
         serverButton.addTarget(self, action: #selector(serverAction), for: .touchUpInside)
         serverButton.center = view.center
         self.view.addSubview(serverButton)
-        
+        */
         
         
         
@@ -59,6 +105,37 @@ class ExploreViewController: UIViewController {
         
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Num: \(indexPath.row)")
+        print("Value: \(myArray[indexPath.row])")
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return myArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
+        cell.textLabel!.text = "\(myArray[indexPath.row])"
+        cell.backgroundColor = UIColor.clear
+        cell.textLabel!.textColor = UIColor.white
+        cell.textLabel?.numberOfLines = 2
+        
+        let bgColorView = UIView()
+        let bgColor = UIColor(red: 73/255.0, green: 22/255.0, blue: 181/255.0, alpha: 1.0)
+        bgColorView.backgroundColor = bgColor
+        cell.selectedBackgroundView = bgColorView
+        let ifont = UIFont(name: "HelveticaNeue-Medium", size: 18.0)!
+        cell.textLabel!.font = ifont
+        return cell
+    }
+    
+    
     
     
     @objc func serverAction(sender: UIButton!) {

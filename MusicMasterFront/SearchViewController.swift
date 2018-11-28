@@ -99,9 +99,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     var songName : String = ""
     var artistNameWithSpaces = ""
     var songNameWithSpaces = ""
+    var responseServer : String = ""
     let client = ItunesAPIClient()
     var albumView = UIImageView()
-    let selectButton = UIButton(frame: CGRect(x: 30, y: 540, width: 100, height: 100))
+    let selectButton = UIButton(frame: CGRect(x: 30, y: 590, width: 130, height: 50))
     
     var songChosenByUser = UILabel(frame: CGRect(x: 0, y: 0, width: 230, height: 21))
     var artistChosenByUser = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
@@ -123,6 +124,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         pulsatingLayer.lineCap = CAShapeLayerLineCap.round
         pulsatingLayer.position = CGPoint(x:view.center.x,y:view.center.y)
         view.layer.addSublayer(pulsatingLayer)
+
+        selectButton.layer.cornerRadius = 5
+        selectButton.layer.borderWidth = 1
+        selectButton.layer.borderColor = UIColor.white.cgColor
 
         
         self.title = "Search"
@@ -364,6 +369,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         
         //request.httpBody = somedata
         print(request)
+        
         let task = URLSession.shared.dataTask(with: request) {data, response, err in
             if err != nil {
                 
@@ -373,22 +379,17 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
                 
                 let jsonStr = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
                 print("Parsed JSON: '\(String(describing: jsonStr))'")
+                self.responseServer = jsonStr! as String
+                print("response: "+self.responseServer)
             }
             print("Entered the completionHandler")
-            
+            self.performSegue(withIdentifier: "SearchSegue", sender: self)
+
         }
         task.resume()
         
         
-        self.performSegue(withIdentifier: "SearchSegue", sender: self)
-        artistChosenByUser.text = "Artist";
-        songChosenByUser.text = "Song";
-        Main().setArtistChosen(artist: "")
-        Main().setSongChosen(song: "")
-        let defaultAlbum = "defaultAlbum.png"
-        let albumImage = UIImage(named: defaultAlbum)
-        Main().setSearchAlbumArt(art: albumImage!)
-        albumView.image = Main().getSearchAlbumArt()
+        
     }
     
     @objc func selectSongAction(sender: UIButton!) {
@@ -433,6 +434,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         if segue.identifier == "SearchSegue" {
             let songToSend : String = self.songNameWithSpaces
             let artistToSend : String = self.artistNameWithSpaces
+            let t : String = self.responseServer
 
             // Create a new variable to store the instance of PlayerTableViewController
             let destinationVC = segue.destination as! UINavigationController
@@ -441,6 +443,16 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
             targetController.songName = songToSend
             targetController.artistName = artistToSend
             targetController.albumImageToDisplay = self.albumView.image!
+            targetController.responseFromServer = t
+            artistChosenByUser.text = "Artist";
+            songChosenByUser.text = "Song";
+            Main().setArtistChosen(artist: "")
+            Main().setSongChosen(song: "")
+            let defaultAlbum = "defaultAlbum.png"
+            let albumImage = UIImage(named: defaultAlbum)
+            Main().setSearchAlbumArt(art: albumImage!)
+            albumView.image = Main().getSearchAlbumArt()
+            
         }
         else if segue.identifier == "SelectSong" {
             let destinationVC = segue.destination as! UINavigationController

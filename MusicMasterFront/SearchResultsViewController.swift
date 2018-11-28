@@ -14,7 +14,8 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
     let querySongTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
     var artistName : String = ""
     var songName : String = ""
-    private let myArray: NSArray = ["Song 1","Song 2","Song 3"]
+    private var myArray : [String] = []
+    var responseFromServer : String = ""
     private var myTableView: UITableView!
     var albumView = UIImageView()
     var albumImageToDisplay = UIImage()
@@ -22,6 +23,28 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        print("response: "+responseFromServer)
+        let capturedPlaylist = responseFromServer
+        var songAndArtist = ""
+        print("capture: "+capturedPlaylist)
+        print(capturedPlaylist.indices.count)
+        for index in capturedPlaylist.indices
+        {
+            if(capturedPlaylist[index] == "%")
+            {
+                myArray.append(songAndArtist)
+                print(songAndArtist)
+                songAndArtist = ""
+            }
+            else
+            {
+                songAndArtist.append(capturedPlaylist[index])
+            }
+        }
+        
+        
+        
+        
         
         //let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width

@@ -15,10 +15,14 @@ class TabBarViewController: UITabBarController {
         super.viewDidLoad()
         self.selectedIndex = 1
         print(nameOfuser)
-        //let darkPurple = UIColor(red: 24/255.0, green: 18/255.0, blue: 97/255.0, alpha: 1.0)
+        let darkPurple = UIColor(red: 24/255.0, green: 18/255.0, blue: 97/255.0, alpha: 1.0)
         //UITabBar.appearance().barTintColor = darkPurple // your color
-        UITabBar.appearance().backgroundColor = UIColor.clear
+        tabBar.backgroundColor = darkPurple
         UITabBar.appearance().tintColor = UIColor.white
+        UITabBar.appearance().shadowImage = UIImage()
+        UITabBar.appearance().backgroundImage = UIImage()
+        //UITabBar.appearance().isOpaque = false
+        //tabBar.isTranslucent = false
 
         self.tabBarController?.tabBar.items?[0].title = "Explore"
         self.tabBarController?.tabBar.items?[1].title = "Search"
