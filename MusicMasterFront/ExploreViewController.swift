@@ -18,9 +18,12 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
     var feedStringResponse = ""
     var multiFeed: UITableView!
     private var myArray: Array<String> = []
+    var timer = Timer()
     let client = Main().getClient()
     override func viewDidLoad() {
         super.viewDidLoad()
+        scheduledTimerWithTimeInterval()
+
        
 
         let displayWidth: CGFloat = self.view.frame.width
@@ -107,7 +110,7 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
         
 
                     print("hello")
-                    guard let data = client.read(1024*10, timeout: 3) else { return }
+                    guard let data = client.read(1024*10, timeout: 2) else { return }
 
         
                     if let response = String(bytes: data, encoding: .utf8) {
@@ -118,7 +121,12 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
 
 
+        //let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timeRefresh), userInfo: nil, repeats: true)
 
+        //timer.fire()
+        
+        multiFeed.setNeedsDisplay()
+        
         
     }
     
@@ -129,7 +137,7 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
         {
 
                     print("hello")
-                    guard let data = client.read(1024*10, timeout: 3) else { return }
+                    guard let data = client.read(1024*10, timeout: 2) else { return }
 
                     if let response = String(bytes: data, encoding: .utf8) {
                         
@@ -138,6 +146,8 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
                         multiFeed.reloadData()
                     }
             self.multiFeed.reloadData()
+            multiFeed.setNeedsDisplay()
+
         }
     }
     
@@ -167,7 +177,7 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
         let bgColor = UIColor(red: 73/255.0, green: 22/255.0, blue: 181/255.0, alpha: 1.0)
         bgColorView.backgroundColor = bgColor
         cell.selectedBackgroundView = bgColorView
-        let ifont = UIFont(name: "HelveticaNeue-Medium", size: 18.0)!
+        let ifont = UIFont(name: "HelveticaNeue-Medium", size: 16.0)!
         cell.textLabel!.font = ifont
         return cell
     }
@@ -177,7 +187,7 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
     {
 
 
-                guard let data = client.read(1024*10, timeout: 3) else { return }
+                guard let data = client.read(1024*10, timeout: 2) else { return }
             print(data)
             print("yeet")
             if let response = String(bytes: data, encoding: .utf8) {
@@ -185,7 +195,28 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
             print("TCPCLIENT "+response)
             myArray.append(response)
             multiFeed.reloadData()
+                multiFeed.setNeedsDisplay()
+
             }
+
+    }
+    
+    func refresh()
+    {
+        getData()
+        multiFeed.setNeedsDisplay()
+
+    }
+    
+    func scheduledTimerWithTimeInterval(){
+        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timeRefresh), userInfo: nil, repeats: true)
+    }
+    
+    @objc func timeRefresh()
+    {
+        getData()
+        multiFeed.setNeedsDisplay()
 
     }
     
