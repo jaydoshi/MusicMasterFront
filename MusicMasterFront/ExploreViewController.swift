@@ -21,6 +21,24 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        /*
+        let client = TCPClient(address: "www.apple.com", port: 80)
+        switch client.connect(timeout: 1) {
+        case .success:
+            switch client.send(string: "GET / HTTP/1.0\n\n" ) {
+            case .success:
+                guard let data = client.read(1024*10) else { return }
+                
+                if let response = String(bytes: data, encoding: .utf8) {
+                    print(response)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        case .failure(let error):
+            print(error)
+        }*/
 
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height/2
@@ -102,19 +120,21 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
         serverButton.center = view.center
         self.view.addSubview(serverButton)
         */
-        
-        
-        
-        
-        
+
+
+
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         print("lol")
-        DispatchQueue.main.async {
-            self.getData()
-            self.multiFeed.reloadData()
+        
+        if(Main().getGuestBool() == false)
+        {
+            DispatchQueue.main.async {
+                self.getData()
+                self.multiFeed.reloadData()
+            }
         }
     }
     
@@ -146,6 +166,9 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.textLabel!.font = ifont
         return cell
     }
+    
+    
+    
     
     func getData()
     {
