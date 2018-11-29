@@ -35,6 +35,12 @@
 		AD0BA6BB21AA21F500DD752A /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0BA6BA21AA21F500DD752A /* SongCell.swift */; };
 		AD0BA6BD21AA221C00DD752A /* SongViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0BA6BC21AA221C00DD752A /* SongViewModel.swift */; };
 		AD0BA6BF21AF36FE00DD752A /* mind-over-matter-reprise.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD0BA6BE21AF36FD00DD752A /* mind-over-matter-reprise.mp3 */; };
+		AD447DF321AFD37200D51E57 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD447DF221AFD37200D51E57 /* Result.swift */; };
+		AD447DF521AFD37C00D51E57 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD447DF421AFD37C00D51E57 /* Socket.swift */; };
+		AD447DFA21AFD3D300D51E57 /* TCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD447DF921AFD3D300D51E57 /* TCPClient.swift */; };
+		AD447DFC21AFD3D900D51E57 /* ytcpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = AD447DFB21AFD3D900D51E57 /* ytcpsocket.c */; };
+		AD447E0021AFD44500D51E57 /* UDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD447DFF21AFD44500D51E57 /* UDPClient.swift */; };
+		AD447E0221AFD44B00D51E57 /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = AD447E0121AFD44B00D51E57 /* yudpsocket.c */; };
 		AD8867F6218793F0005F0B14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8867F5218793F0005F0B14 /* AppDelegate.swift */; };
 		AD8867F8218793F0005F0B14 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8867F7218793F0005F0B14 /* ExploreViewController.swift */; };
 		AD8867FA218793F0005F0B14 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8867F9218793F0005F0B14 /* SearchViewController.swift */; };
@@ -80,6 +86,13 @@
 		AD0BA6BA21AA21F500DD752A /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		AD0BA6BC21AA221C00DD752A /* SongViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongViewModel.swift; sourceTree = "<group>"; };
 		AD0BA6BE21AF36FD00DD752A /* mind-over-matter-reprise.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mind-over-matter-reprise.mp3"; sourceTree = "<group>"; };
+		AD447DF221AFD37200D51E57 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		AD447DF421AFD37C00D51E57 /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
+		AD447DF921AFD3D300D51E57 /* TCPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPClient.swift; sourceTree = "<group>"; };
+		AD447DFB21AFD3D900D51E57 /* ytcpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ytcpsocket.c; sourceTree = "<group>"; };
+		AD447DFF21AFD44500D51E57 /* UDPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPClient.swift; sourceTree = "<group>"; };
+		AD447E0121AFD44B00D51E57 /* yudpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yudpsocket.c; sourceTree = "<group>"; };
+		AD447E0421AFD49A00D51E57 /* SwiftSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftSocket.h; sourceTree = "<group>"; };
 		AD8867F2218793F0005F0B14 /* MusicMasterFront.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicMasterFront.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD8867F5218793F0005F0B14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD8867F7218793F0005F0B14 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +166,52 @@
 			path = "View Models";
 			sourceTree = "<group>";
 		};
+		AD447DEF21AFD35500D51E57 /* SwiftSocket */ = {
+			isa = PBXGroup;
+			children = (
+				AD447E0321AFD48900D51E57 /* Supporting Files */,
+				AD447DFE21AFD42700D51E57 /* UDPSocket */,
+				AD447DFD21AFD40800D51E57 /* TCPSocket */,
+				AD447DF721AFD3BA00D51E57 /* Source */,
+			);
+			path = SwiftSocket;
+			sourceTree = "<group>";
+		};
+		AD447DF721AFD3BA00D51E57 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				AD447DF221AFD37200D51E57 /* Result.swift */,
+				AD447DF421AFD37C00D51E57 /* Socket.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		AD447DFD21AFD40800D51E57 /* TCPSocket */ = {
+			isa = PBXGroup;
+			children = (
+				AD447DF921AFD3D300D51E57 /* TCPClient.swift */,
+				AD447DFB21AFD3D900D51E57 /* ytcpsocket.c */,
+			);
+			path = TCPSocket;
+			sourceTree = "<group>";
+		};
+		AD447DFE21AFD42700D51E57 /* UDPSocket */ = {
+			isa = PBXGroup;
+			children = (
+				AD447E0121AFD44B00D51E57 /* yudpsocket.c */,
+				AD447DFF21AFD44500D51E57 /* UDPClient.swift */,
+			);
+			path = UDPSocket;
+			sourceTree = "<group>";
+		};
+		AD447E0321AFD48900D51E57 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AD447E0421AFD49A00D51E57 /* SwiftSocket.h */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		AD8867E9218793F0005F0B14 = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +231,7 @@
 		AD8867F4218793F0005F0B14 /* MusicMasterFront */ = {
 			isa = PBXGroup;
 			children = (
+				AD447DEF21AFD35500D51E57 /* SwiftSocket */,
 				AD0BA6AF21AA03C700DD752A /* View Models */,
 				AD0BA6A421A9E55B00DD752A /* Data Sources */,
 				AD0BA69721A90BEF00DD752A /* Networking */,
@@ -295,7 +355,9 @@
 			files = (
 				AD0BA69D21A90D2800DD752A /* ItunesAPIClient.swift in Sources */,
 				AD0BA69921A90C0300DD752A /* JSONDownloader.swift in Sources */,
+				AD447DF321AFD37200D51E57 /* Result.swift in Sources */,
 				AD0BA6A821A9E5BC00DD752A /* SelectResultsDataSource.swift in Sources */,
+				AD447DFC21AFD3D900D51E57 /* ytcpsocket.c in Sources */,
 				AD0BA69221A903D400DD752A /* ItunesEntity.swift in Sources */,
 				AD886819218A86F6005F0B14 /* Song.swift in Sources */,
 				AD88681B218A877F005F0B14 /* Stub.swift in Sources */,
@@ -308,10 +370,14 @@
 				AD0BA69B21A90CA600DD752A /* ItunesError.swift in Sources */,
 				AD0BA6BD21AA221C00DD752A /* SongViewModel.swift in Sources */,
 				AD8867F6218793F0005F0B14 /* AppDelegate.swift in Sources */,
+				AD447DFA21AFD3D300D51E57 /* TCPClient.swift in Sources */,
+				AD447E0021AFD44500D51E57 /* UDPClient.swift in Sources */,
 				AD0BA69F21A93AD000DD752A /* ArtworkDownloader.swift in Sources */,
 				AD0BA6B521AA1DFA00DD752A /* AlbumDetailViewController.swift in Sources */,
 				AD0BA6BB21AA21F500DD752A /* SongCell.swift in Sources */,
 				AD0BA6AA21A9EF9D00DD752A /* AlbumTableViewController.swift in Sources */,
+				AD447E0221AFD44B00D51E57 /* yudpsocket.c in Sources */,
+				AD447DF521AFD37C00D51E57 /* Socket.swift in Sources */,
 				AD0BA6A321A9DFE300DD752A /* SelectNavigationController.swift in Sources */,
 				AD0BA68921A8E86C00DD752A /* SearchResultsViewController.swift in Sources */,
 				AD88680C2187C8FB005F0B14 /* ProfileViewController.swift in Sources */,

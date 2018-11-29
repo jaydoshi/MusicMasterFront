@@ -364,7 +364,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         //var urlStringHold = "http://localhost:8080/SwiftServletTest/FirstServlet?"
         //let finalURL : String = urlStringHold+"songname="+songName+"&"+"artistname"+artistName
         
-        var request = URLRequest(url: URL(string: "http://localhost:8080/SwiftServletTest/FirstServlet?"+"songname="+songName+"&"+"artistname="+artistName+"&"+"username="+user)!)
+        var request = URLRequest(url: URL(string: "http://172.20.10.5:8080/Final_Project/AppServlet?"+"songname="+songName+"&"+"artistname="+artistName+"&"+"username="+user)!)
         request.httpMethod = "GET"
         //let session = URLSession.shared
         //let testString = "/?test=Bad+Blood+by+Taylor+Swift"

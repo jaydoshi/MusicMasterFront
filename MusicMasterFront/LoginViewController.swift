@@ -41,6 +41,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     public var userTitle = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        Main().setClient()
         let errorFont = UIFont(name: "HelveticaNeue", size: 15.0)!
         errorPasswordMessage.text = "Passwords do not match"
         errorPasswordMessage.textColor = UIColor.red
@@ -308,11 +309,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             print("user: "+usernameInfo!)
             print("password: "+passwordInfo!)
             
+            
+            
+            
+            
+            
+            
+            
+            
             Main().setUsername(name: usernameInfo!)
             self.performSegue(withIdentifier: "TabSegue", sender: self)
             self.performSegue(withIdentifier: "LoginSegue", sender: self)
             userNameTextField.text = "";
             passwordTextField.text = "";
+            
         }
         else
         {

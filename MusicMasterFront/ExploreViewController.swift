@@ -18,27 +18,10 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
     var feedStringResponse = ""
     var multiFeed: UITableView!
     private var myArray: Array<String> = []
-
+    let client = Main().getClient()
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        /*
-        let client = TCPClient(address: "www.apple.com", port: 80)
-        switch client.connect(timeout: 1) {
-        case .success:
-            switch client.send(string: "GET / HTTP/1.0\n\n" ) {
-            case .success:
-                guard let data = client.read(1024*10) else { return }
-                
-                if let response = String(bytes: data, encoding: .utf8) {
-                    print(response)
-                }
-            case .failure(let error):
-                print(error)
-            }
-        case .failure(let error):
-            print(error)
-        }*/
 
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height/2
@@ -121,6 +104,19 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(serverButton)
         */
 
+        
+
+                    print("hello")
+                    guard let data = client.read(1024*10, timeout: 3) else { return }
+
+        
+                    if let response = String(bytes: data, encoding: .utf8) {
+            
+                    print("TCPCLIENT "+response)
+                    myArray.append(response)
+                    multiFeed.reloadData()
+                }
+
 
 
         
@@ -131,12 +127,21 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if(Main().getGuestBool() == false)
         {
-            DispatchQueue.main.async {
-                self.getData()
-                self.multiFeed.reloadData()
-            }
+
+                    print("hello")
+                    guard let data = client.read(1024*10, timeout: 3) else { return }
+
+                    if let response = String(bytes: data, encoding: .utf8) {
+                        
+                        print("TCPCLIENT "+response)
+                        myArray.append(response)
+                        multiFeed.reloadData()
+                    }
+            self.multiFeed.reloadData()
         }
     }
+    
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Num: \(indexPath.row)")
@@ -168,8 +173,23 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
+    func getData()
+    {
+
+
+                guard let data = client.read(1024*10, timeout: 3) else { return }
+            print(data)
+            print("yeet")
+            if let response = String(bytes: data, encoding: .utf8) {
+            
+            print("TCPCLIENT "+response)
+            myArray.append(response)
+            multiFeed.reloadData()
+            }
+
+    }
     
-    
+    /*
     func getData()
     {
         myArray.removeAll()
@@ -185,10 +205,7 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             else {
                 
-                let jsonStr = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                print("Parsed JSON: '\(String(describing: jsonStr))'")
-                self.feedStringResponse = jsonStr! as String
-                print("response: "+self.feedStringResponse)
+               12
             }
             print("Entered the completionHandler")
             
@@ -211,7 +228,7 @@ class ExploreViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         task.resume()
     }
-    
+    */
     
     
     
